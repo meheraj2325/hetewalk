@@ -104,6 +104,7 @@ ENV/
 .mypy_cache/
 
 # Ignore datasets
+datasets
 
 # Don't ignore some specific files
 !requirements.txt
