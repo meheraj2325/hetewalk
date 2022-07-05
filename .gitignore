@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 text8
 *.txt
+*.pkl
 *.lprof
 __pycache__/
 *.py[cod]
