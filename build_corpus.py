@@ -5,8 +5,11 @@ from utils.random_walk import *
 import yaml
 import pickle
 import numpy as np
+import time
 
 if __name__ == "__main__":
+
+    start = time.time()
 
     config = yaml.safe_load(open("config.yaml"))
     seed = config['seed']
@@ -14,9 +17,13 @@ if __name__ == "__main__":
     rng = np.random.default_rng(seed)
 
     graph = Graph(is_undirected = data_config['is_undirected'])
-    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir"]}/set1_D_D.csv', 'disease', 'disease', verbose = True)
-    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir"]}/set1_G_D.csv', 'gene', 'disease',  verbose = True)
-    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir"]}/set1_G_G.csv', 'gene', 'gene', verbose = True)
+    # graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_test"]}/set1_D_D.csv', 'disease', 'disease', verbose = True)
+    # graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_test"]}/set1_G_D.csv', 'gene', 'disease',  verbose = True)
+    # graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_test"]}/set1_G_G.csv', 'gene', 'gene', verbose = True)
+    
+    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_main"]}/disease_disease.csv', 'disease', 'disease', verbose = True)
+    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_main"]}/disease_gene.csv', 'disease', 'gene',  verbose = True)
+    graph = load_edgelist(graph, data_config['all_category_names'], f'{data_config["dataset_dir_main"]}/final_STRING.csv', 'gene', 'gene', verbose = True)
 
     graph.preprocess_graph(verbose = True)
 
@@ -64,5 +71,7 @@ if __name__ == "__main__":
     # print(node_list_per_type)
 
     with open('node_list_per_type.pkl', 'wb') as f:
-        pickle.dump(node_list_per_type, f)
-            
+        pickle.dump(node_list_per_type, f)   
+
+    end = time.time()
+    print(f"Total time elapsed: {end-start}")

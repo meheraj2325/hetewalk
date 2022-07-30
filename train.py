@@ -1,3 +1,4 @@
+from unittest import skip
 from data.input_data import InputData
 import numpy
 from model.skipgram_model import SkipGramModel
